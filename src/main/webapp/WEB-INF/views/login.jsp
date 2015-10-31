@@ -12,7 +12,7 @@
         <c:if test="${not empty error}">
             <div>${error}</div>
         </c:if>
-        <form method="post" action="/j_spring_security_check">
+        <form name='loginForm' method="post" action="/j_spring_security_check">
             <p><input type="text" name="username" value="" placeholder="логин" required></p>
             <p><input type="password" name="password" value="" placeholder="пароль" required></p>
             <p class="remember_me">
