@@ -1,0 +1,9 @@
+.icon-delete {
+    background-image: url(/resources/image/delete.png) !important;
+}
+.icon-add {
+    background-image: url(/resources/image/add.png) !important;
+}
+.icon-logout {
+    background-image: url(/resources/image/logout.png) !important;
+}
