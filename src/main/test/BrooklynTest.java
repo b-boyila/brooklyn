@@ -1,3 +1,5 @@
+import help.Helper;
+import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,87 +15,51 @@ import static org.junit.Assert.assertTrue;
  */
 public class BrooklynTest {
 
-    public static void main(String[] args) throws InterruptedException {
+    public BrooklynTest(){
+        Helper.init();
+    }
 
-        WebDriver driver = driver();
-        driver.get("http://localhost:8080/login");
+    @After
+    public void logout(){
+        Helper.logout();
+    }
 
-        addClientTest(driver);
-        editClientTest(driver);
-        deleteClientTest(driver);
+    @AfterClass
+    public static void close(){
+        Helper.driver.close();
+    }
 
-        addParentInAddClientTest(driver);
-        editParentInEditClientTest(driver);
-        deleteParentInEditClientTest(driver);
-        deleteClientTest(driver);
+    /**
+     * Тестирование добавления клиента без доп. контактов и истории разговора
+     * */
+    @Test
+    public void addClientWithoutParentAndStoreTest() {
 
-        addCommentInAddClientTest(driver);
-        editCommentInEditClientTest(driver);
-        deleteCommentInEditClientTest(driver);
-        deleteClientTest(driver);
+        //Подготовка
+        Helper.authorizationUser();
+        Helper.clickAddClientButton();
+        Helper.appearedAddClientForm();
+        String firstName = Helper.sendKeysInFirstName();
+        String secondName = Helper.sendKeysInSecondName();
+        String lastName = Helper.sendKeysInLastName();
+        String happy = Helper.sendKeysInHappy();
+        String phone = Helper.sendKeysInPhone();
+        String email = Helper.sendKeysInEmail();
+        String status = Helper.sendKeysInStatus();
+        Helper.clickSaveButtonAddClient();
 
-        driver.quit();
+        //Проверка
+        Helper.assertText(firstName);
+        Helper.assertText(phone);
+        Helper.assertText(email);
+        Helper.assertText(status);
+
     }
 
 
+    /*
+    /*Удаление клиента
 
-    /*Добавление клиента*/
-    public static void addClientTest(WebDriver driver) throws InterruptedException {
-        WebElement addClientButton = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Добавить')]")));
-        addClientButton.click();
-        WebElement addFormClient = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Добавление клиента')]")));
-
-        WebElement firstName = driver.findElement(By.xpath("//input[@name='firstName']"));
-        firstName.click();
-        firstName.sendKeys("Константин");
-
-        WebElement lastName = driver.findElement(By.xpath("//input[@name='lastName']"));
-        lastName.click();
-        lastName.sendKeys("Тагинцев");
-
-        WebElement secondName = driver.findElement(By.xpath("//input[@name='secondName']"));
-        secondName.click();
-        secondName.sendKeys("Дмитриевич");
-
-        WebElement happyBirthday = driver.findElement(By.xpath("//input[@name='happyBirthday']"));
-        happyBirthday.click();
-        happyBirthday.sendKeys("20/06/91");
-
-        WebElement phone = driver.findElement(By.xpath("//input[@name='phone']"));
-        phone.click();
-        phone.sendKeys("89080434717");
-
-        WebElement email = driver.findElement(By.xpath("//input[@name='email']"));
-        email.click();
-        email.sendKeys("k.tagintsev@gmail.com");
-
-        WebElement status = driver.findElement(By.xpath("//input[@name='status']"));
-        status.click();
-        status.sendKeys("0.5");
-
-        WebElement saveButton = driver.findElement(By.xpath("//*[contains(text(), 'Сохранить')]"));
-        saveButton.click();
-
-        WebElement testNameInGrid = (new WebDriverWait(driver, 5))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Константин')]")));
-        assertTrue("Данные в столбце 'Имя' не совпадают!", "Константин".equals(testNameInGrid.getText()));
-        WebElement testPhoneInGrid = (new WebDriverWait(driver, 1))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), '89080434717')]")));
-        assertTrue("Данные в столбце 'Телефон' не совпадают!", "89080434717".equals(testPhoneInGrid.getText()));
-        WebElement testEmailInGrid = (new WebDriverWait(driver, 1))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'k.tagintsev@gmail.com')]")));
-        assertTrue("Данные в столбце 'E-mail' не совпадают!", "k.tagintsev@gmail.com".equals(testEmailInGrid.getText()));
-        WebElement testStatusInGrid = (new WebDriverWait(driver, 1))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), '0.5')]")));
-        assertTrue("Данные в столбце 'Статус' не совпадают!", "0.5".equals(testStatusInGrid.getText()));
-
-        Thread.sleep(5000);
-
-    }
-
-    /*Удаление клиента*/
     public static void deleteClientTest(WebDriver driver) throws InterruptedException {
         WebElement firstNameInGrid = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'КонстантинЛАЛ')]")));
@@ -113,7 +79,9 @@ public class BrooklynTest {
 
     }
 
-    /*Редактирование клиента*/
+    */
+    /*Редактирование клиента
+
     public static void editClientTest(WebDriver driver) throws InterruptedException {
         WebElement firstNameInGrid = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Константин')]")));
@@ -171,7 +139,10 @@ public class BrooklynTest {
 
     }
 
-    /*Добавление родственника при создание клиента*/
+    */
+
+    /*Добавление родственника при создание клиента
+
     public static void addParentInAddClientTest(WebDriver driver) throws InterruptedException {
         WebElement addClientButton = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Добавить')]")));
@@ -233,7 +204,10 @@ public class BrooklynTest {
 
     }
 
-    /*Редактирование родственника при редактирование клиента*/
+    */
+
+    /*Редактирование родственника при редактирование клиента
+
     public static void editParentInEditClientTest(WebDriver driver) throws InterruptedException {
         WebElement firstNameInGrid = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Константин')]")));
@@ -333,7 +307,10 @@ public class BrooklynTest {
 
     }
 
-    /*Удаление родственника при редактирование клиента*/
+    */
+
+    /*Удаление родственника при редактирование клиента
+
     public static void deleteParentInEditClientTest(WebDriver driver) throws InterruptedException {
         WebElement firstNameInGrid = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'КонстантинЛАЛ')]")));
@@ -364,8 +341,10 @@ public class BrooklynTest {
         Thread.sleep(5000);
 
     }
+    */
 
-    /*Добавление комментария при создание клиента*/
+    /*Добавление комментария при создание клиента
+
     public static void addCommentInAddClientTest(WebDriver driver) throws InterruptedException {
         WebElement addClientButton = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Добавить')]")));
@@ -427,7 +406,10 @@ public class BrooklynTest {
 
     }
 
-    /*Редактирование комментария при редактирование клиента*/
+    */
+
+    /*Редактирование комментария при редактирование клиента
+
     public static void editCommentInEditClientTest(WebDriver driver) throws InterruptedException {
         WebElement firstNameInGrid = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Константин')]")));
@@ -506,7 +488,10 @@ public class BrooklynTest {
 
     }
 
-    /*Удаление комментария при редактирование клиента*/
+    */
+
+    /*Удаление комментария при редактирование клиента
+
     public static void deleteCommentInEditClientTest(WebDriver driver) throws InterruptedException {
         WebElement firstNameInGrid = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'КонстантинЛАЛ')]")));
@@ -537,35 +522,7 @@ public class BrooklynTest {
         Thread.sleep(5000);
 
     }
-
-    private static WebDriver driver(){
-
-        WebDriver driver = null;
-        if(isWindows()){
-            System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-            driver = new ChromeDriver();
-        }
-        if(isMac()){
-            System.setProperty("webdriver.chrome.driver", "chromedriver");
-            driver = new ChromeDriver();
-        }
-
-        return driver;
-    }
-
-    public static boolean isWindows(){
-
-        String os = System.getProperty("os.name").toLowerCase();
-        return (os.indexOf( "win" ) >= 0);
-
-    }
-
-    public static boolean isMac(){
-
-        String os = System.getProperty("os.name").toLowerCase();
-        return (os.indexOf( "mac" ) >= 0);
-
-    }
+*/
 
 }
 

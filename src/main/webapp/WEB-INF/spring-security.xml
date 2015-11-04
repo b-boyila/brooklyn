@@ -7,7 +7,7 @@
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
     <security:http auto-config="true">
-        <security:intercept-url pattern="/brooklyn**" access="ROLE_USER" />
+        <security:intercept-url pattern="/brooklyn**" access="ROLE_ADMIN, ROLE_USER" />
         <security:form-login
                 login-page="/login"
                 default-target-url="/brooklyn"
@@ -20,7 +20,8 @@
     <security:authentication-manager>
         <security:authentication-provider>
             <security:user-service>
-                <security:user name="admin" password="123456" authorities="ROLE_USER" />
+                <security:user name="adminTest" password="tyn77dc" authorities="ROLE_ADMIN" />
+                <security:user name="userTest" password="tyn77dc" authorities="ROLE_USER" />
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>
