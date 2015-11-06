@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import service.ClientService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +28,7 @@ public class ClientController {
     @RequestMapping(value = "create", method = RequestMethod.POST)
     @ResponseBody
     public Boolean create(@RequestBody Client client) {
+        client.setDateRequest(new SimpleDateFormat("dd/MM/yy").format(new Date()));
         clientService.add(client);
         return true;
     }
@@ -66,6 +69,7 @@ public class ClientController {
             client.setStatus(c.getStatus());
             client.setParents(c.getParents());
             client.setStory(c.getStory());
+            client.setDateRequest(c.getDateRequest());
             list.add(client);
         }
 

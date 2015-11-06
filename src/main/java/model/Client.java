@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -38,6 +37,9 @@ public class Client implements Serializable {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "dateRequest")
+    private String dateRequest;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Parent> parents;
@@ -127,5 +129,13 @@ public class Client implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDateRequest() {
+        return dateRequest;
+    }
+
+    public void setDateRequest(String dateRequest) {
+        this.dateRequest = dateRequest;
     }
 }
