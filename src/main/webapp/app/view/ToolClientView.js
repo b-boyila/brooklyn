@@ -18,11 +18,35 @@ Ext.define('Brooklyn.view.ToolClientView', {
             collapsed: true
         },
         {
-            xtype: 'sendClientView',
-            title: 'Отправка писем и SMS',
+            xtype: 'uploadDataView',
+            title: 'Выгрузить данные',
             region: 'west',
             width: 280,
             collapsed: true
+        },
+        {
+            xtype: 'sendEmailView',
+            title: 'E-mail рассылка',
+            region: 'west',
+            width: 280,
+            hideCollapseTool: true,
+            listeners : {
+                beforeexpand : function(){
+                    return false;
+                }
+            }
+        },
+        {
+            xtype: 'sendSmsView',
+            title: 'Sms рассылка',
+            region: 'west',
+            width: 280,
+            hideCollapseTool: true,
+            listeners : {
+                beforeexpand : function(){
+                    return false;
+                }
+            }
         }
     ]
 });

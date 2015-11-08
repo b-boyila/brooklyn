@@ -59,6 +59,24 @@ Ext.define('Brooklyn.controller.ClientCatalogController', {
             },
             'storyGridView  button[action=delete]': {
                 click: this.onDeleteStory
+            },
+            'uploadDataView  checkbox[name=c01]': {
+                change: this.onCheck
+            },
+            'uploadDataView  checkbox[name=c05]': {
+                change: this.onCheck
+            },
+            'uploadDataView  checkbox[name=c09]': {
+                change: this.onCheck
+            },
+            'uploadDataView  checkbox[name=c1]': {
+                change: this.onCheck
+            },
+            'toolClientView  sendEmailView': {
+                afterrender: this.onEmailDelivery
+            },
+            'toolClientView  sendSmsView': {
+                afterrender: this.onSmsDelivery
             }
         });
     },
@@ -231,6 +249,28 @@ Ext.define('Brooklyn.controller.ClientCatalogController', {
                     grid.store.commitChanges();
                 }
             }
+        });
+    },
+
+    onCheck: function(item, checked) {
+
+        console.log(item.name);
+        console.log(checked);
+
+    },
+
+    onEmailDelivery: function(component) {
+        var element = component.getEl();
+        element.on('click', function() {
+            window.open('/emailDelivery')
+
+        });
+    },
+
+    onSmsDelivery: function(component) {
+        var element = component.getEl();
+        element.on('click', function() {
+            console.log("Sms рассылка");
         });
     }
 });

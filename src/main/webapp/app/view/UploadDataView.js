@@ -2,22 +2,19 @@
  * Created by Илья on 16.09.2015.
  */
 
-Ext.define('Brooklyn.view.SendClientView', {
+Ext.define('Brooklyn.view.UploadDataView', {
     extend: 'Ext.form.Panel',
-    alias: 'widget.sendClientView',
+    alias: 'widget.uploadDataView',
     bodyPadding: 10,
     items: [
         {
             xtype: 'checkboxgroup',
             fieldLabel: 'Клиенты',
-            columns: 1,
-            style: {
-                padding: '5px 10px 5px 10px'
-            },
+            columns: 2,
             items: [{
                 xtype: 'checkbox',
                 boxLabel: '0,1',
-                name: 'с01',
+                name: 'c01',
                 inputValue: '0.1'
             }, {
                 xtype: 'checkbox',
@@ -38,24 +35,8 @@ Ext.define('Brooklyn.view.SendClientView', {
         },
         {
             xtype: 'button',
-            name: 'sendEmail',
-            text: 'Отправить письма отмеченным',
-            region: 'centre',
-            height: 70,
-            width: 260
-        },
-        {
-            xtype: 'panel',
-            region: 'north',
-            height: 30
-        },
-        {
-            xtype: 'button',
-            name: 'sendSMS',
-            text: 'Отправить SMS отмеченным',
-            region: 'centre',
-            height: 70,
-            width: 260
+            name: 'uploadDate',
+            text: 'Выгрузить'
         }
     ]
 });

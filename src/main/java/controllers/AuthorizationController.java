@@ -22,6 +22,16 @@ public class AuthorizationController {
 
     }
 
+    @RequestMapping(value = "/emailDelivery**", method = RequestMethod.GET)
+    public ModelAndView emailPage() {
+
+        ModelAndView model = new ModelAndView();
+        model.setViewName("email");
+
+        return model;
+
+    }
+
     @RequestMapping(value = { "/", "/login**" }, method = RequestMethod.GET)
     public ModelAndView login(
              @RequestParam(value = "error", required = false) String error,

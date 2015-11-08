@@ -6,11 +6,13 @@ Ext.application({
         'ClientCatalogView',
         'ClientGridView',
         'SearchClientView',
-        'SendClientView',
+        'UploadDataView',
         'ToolClientView',
         'AddClientFieldsView',
         'ParentsGridView',
-        'StoryGridView'
+        'StoryGridView',
+        'SendEmailView',
+        'SendSmsView'
     ],
 
     controllers : [
