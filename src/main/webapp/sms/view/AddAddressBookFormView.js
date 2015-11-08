@@ -2,13 +2,11 @@
  * Created by ���� on 02.09.2015.
  */
 
-Ext.define('Email.view.AddEmailPatternFormView', {
+Ext.define('Sms.view.AddAddressBookFormView', {
     extend: 'Ext.window.Window',
-    alias: 'widget.addEmailPatternFormView',
-    title: 'Добавление шаблона сообщения',
+    alias: 'widget.addAddressBookFormView',
+    title: 'Добавление адресной книги',
     autoShow: true,
-    height: 720,
-    width: 634,
     layout: 'fit',
     modal: true,
     config : {
@@ -26,10 +24,9 @@ Ext.define('Email.view.AddEmailPatternFormView', {
                     name: 'name'
                 },
                 {
-                    xtype: 'panel',
-                    height: 620,
-                    width: 610,
-                    html: '<form method="post"><textarea id="emailPattern"></textarea></form>'
+                    xtype:'textarea',
+                    fieldLabel: 'Номера',
+                    name: 'phones'
                 }
             ]
         }

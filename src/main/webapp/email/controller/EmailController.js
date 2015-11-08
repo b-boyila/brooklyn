@@ -48,7 +48,7 @@ Ext.define('Email.controller.EmailController', {
     onAddEmailPattern: function () {
         var view = Ext.widget('addEmailPatternFormView');
         tinymce.init({
-            selector: "#pattern",
+            selector: "#emailPattern",
             height: 500,
             width: 600
         });
