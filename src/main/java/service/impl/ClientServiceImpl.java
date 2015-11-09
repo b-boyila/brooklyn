@@ -1,5 +1,6 @@
 package service.impl;
 
+import help.Search;
 import model.Client;
 import model.dao.ClientDao;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Transactional
     @Override
-    public Collection<Client> getClients() {
-        return clientDao.getClients();
+    public Collection<Client> getClients(Search search) {
+        return clientDao.getClients(search);
     }
 
     @Transactional

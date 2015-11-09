@@ -28,7 +28,9 @@ Ext.define('Brooklyn.controller.ClientCatalogController', {
         {selector: 'storyGridView button[action="add"]',
             ref: 'addStoryButton'},
         {selector: 'storyGridView button[action="delete"]',
-            ref: 'deleteStoryButton'}
+            ref: 'deleteStoryButton'},
+        {selector: 'searchClientView',
+            ref: 'searchClientView'}
     ],
 
     init: function () {
@@ -77,6 +79,12 @@ Ext.define('Brooklyn.controller.ClientCatalogController', {
             },
             'toolClientView  sendSmsView': {
                 afterrender: this.onSmsDelivery
+            },
+            'searchClientView  button[action=search]': {
+                click: this.onSearchClient
+            },
+            'searchClientView  button[action=clean]': {
+                click: this.onSearchCleanClient
             }
         });
     },
@@ -270,7 +278,26 @@ Ext.define('Brooklyn.controller.ClientCatalogController', {
     onSmsDelivery: function(component) {
         var element = component.getEl();
         element.on('click', function() {
-            console.log("Sms рассылка");
+            window.open('/smsDelivery')
         });
+    },
+
+    onSearchClient: function(){
+        var search = this.getSearchClientView().getValues();
+        Ext.getStore('ClientCatalogStore').load({
+            params: {
+                name: search["name"],
+                email: search["email"],
+                phone: search["phone"]
+            }
+        });
+    },
+
+    onSearchCleanClient: function(){
+        Ext.getCmp('nameSearch').setValue('');
+        Ext.getCmp('emailSearch').setValue('');
+        Ext.getCmp('phoneSearch').setValue('');
+        Ext.getStore('ClientCatalogStore').load();
     }
+
 });

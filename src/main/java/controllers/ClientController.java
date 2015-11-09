@@ -1,5 +1,6 @@
 package controllers;
 
+import help.Search;
 import model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,9 +36,9 @@ public class ClientController {
 
     @RequestMapping(value = "read", method = RequestMethod.GET)
     @ResponseBody
-    public Collection<Client> read() {
+    public Collection<Client> read(@RequestBody Search search) {
         List<Client> clients = new ArrayList<Client>();
-        insertData(clients);
+        insertData(clients, search);
         return clients;
     }
 
@@ -55,8 +56,8 @@ public class ClientController {
         return true;
     }
 
-    private void insertData(List<Client> list){
-        Collection<Client> clients = clientService.getClients();
+    private void insertData(List<Client> list, Search search){
+        Collection<Client> clients = clientService.getClients(search);
         for(Client c: clients){
             Client client = new Client();
             client.setId(c.getId());
