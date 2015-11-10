@@ -310,4 +310,19 @@ public class Helper {
         return String.valueOf(phone);
     }
 
+    /**
+     * Добавления клиента без дополнительных контактов и истории разговора
+     * */
+    public static void addClientWithoutParentAndStore(){
+        clickAddClientButton();
+        appearedAddClientForm();
+        sendKeysInFirstName();
+        sendKeysInSecondName();
+        sendKeysInLastName();
+        sendKeysInHappy();
+        sendKeysInPhone();
+        sendKeysInEmail();
+        sendKeysInStatus();
+        clickSaveButtonAddClient();
+    }
 }
