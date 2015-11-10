@@ -51,35 +51,53 @@ public class Helper {
 
     public static WebDriver driver;
 
+    /**
+     * Инициализировать WebDriver
+     */
     public static void init(){
         driver = driver();
         driver.get(URL);
     }
 
+    /**
+     * Разлогиниться
+     */
     public static void logout(){
         WebElement logout = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath(LOGOUT_XPATH)));
         logout.click();
     }
 
+    /**
+     * Произвести авторизацию в роле пользователя
+     */
     public static void authorizationUser() {
         sendKeysInFieldLoginAndPAssword(USER_TEST_LOGIN, USER_TEST_PASSWORD);
         WebElement enter = driver.findElement(By.xpath(ENTER_BUTTON_XPATH));
         enter.click();
     }
 
+    /**
+     * Произвести авторизацию в роле администратора
+     */
     public static void authorizationAdmin() {
         sendKeysInFieldLoginAndPAssword(ADMIN_TEST_LOGIN, ADMIN_TEST_PASSWORD);
         WebElement enter = driver.findElement(By.xpath(ENTER_BUTTON_XPATH));
         enter.click();
     }
 
+    /**
+     * Произвести неправильную авторизацию
+     */
     public static void authorizationBad() {
         sendKeysInFieldLoginAndPAssword(LOGIN_BAD, PASSWORD_BAD);
         WebElement enter = driver.findElement(By.xpath(ENTER_BUTTON_XPATH));
         enter.click();
     }
 
+    /**
+     * Заполнить поля "логин" и "пароль" на форме авторизации
+     */
     public static void sendKeysInFieldLoginAndPAssword(String log, String pass){
         WebElement login = driver.findElement(By.xpath(LOGIN_FILED_XPATH));
         login.click();
@@ -90,12 +108,18 @@ public class Helper {
         password.sendKeys(pass);
     }
 
+    /**
+     * Нажать на кнопку "Добавить" на главной форме клиентской базы
+     */
     public static void clickAddClientButton(){
         WebElement addClientButton = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath(ADD_CLIENT_BUTTON_XPATH)));
         addClientButton.click();
     }
 
+    /**
+     * Проверить присутствие формы дабвления клиента
+     */
     public static void appearedAddClientForm(){
         WebElement addFormClient = (new WebDriverWait(driver, 5))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath(ADD_CLIENT_FORM_XPATH)));
@@ -103,7 +127,7 @@ public class Helper {
     }
 
     /**
-     * Запонить поле "имя" на форме добавления клиента
+     * Заполнить поле "имя" на форме добавления клиента
      * @return имя
      */
     public static String sendKeysInFirstName(){
@@ -115,7 +139,7 @@ public class Helper {
     }
 
     /**
-     * Запонить поле "отчество" на форме добавления клиента
+     * Заполнить поле "отчество" на форме добавления клиента
      * @return отчество
      */
     public static String sendKeysInLastName(){
@@ -127,7 +151,7 @@ public class Helper {
     }
 
     /**
-     * Запонить поле "фамилия" на форме добавления клиента
+     * Заполнить поле "фамилия" на форме добавления клиента
      * @return фамилия
      */
     public static String sendKeysInSecondName(){
@@ -139,7 +163,7 @@ public class Helper {
     }
 
     /**
-     * Запонить поле "день рождения" на форме добавления клиента
+     * Заполнить поле "день рождения" на форме добавления клиента
      * @return день рождения
      */
     public static String sendKeysInHappy(){
@@ -150,11 +174,11 @@ public class Helper {
     }
 
     /**
-     * Запонить поле "телефон" на форме добавления клиента
+     * Заполнить поле "телефон" на форме добавления клиента
      * @return телефон
      */
     public static String sendKeysInPhone(){
-        WebElement element = driver.findElement(By.xpath(PHONE_XPATH));
+        WebElement element = driver.findElements(By.xpath(PHONE_XPATH)).get(1);
         element.click();
         String phone = generatePhone();
         element.sendKeys(phone);
@@ -162,11 +186,11 @@ public class Helper {
     }
 
     /**
-     * Запонить поле "email" на форме добавления клиента
+     * Заполнить поле "email" на форме добавления клиента
      * @return email
      */
     public static String sendKeysInEmail(){
-        WebElement element = driver.findElement(By.xpath(EMAIL_XPATH));
+        WebElement element = driver.findElements(By.xpath(EMAIL_XPATH)).get(1);
         element.click();
         String email = generateEmail();
         element.sendKeys(email);
@@ -174,7 +198,7 @@ public class Helper {
     }
 
     /**
-     * Запонить поле "Статус" на форме добавления клиента
+     * Заполнить поле "Статус" на форме добавления клиента
      * @return status
      */
     public static String sendKeysInStatus(){
@@ -193,22 +217,6 @@ public class Helper {
     }
 
     /**
-     * Добавления клиента без дополнительных контактов и истории разговора
-     * */
-    public static void addClientWithoutParentAndStore(){
-        clickAddClientButton();
-        appearedAddClientForm();
-        sendKeysInFirstName();
-        sendKeysInSecondName();
-        sendKeysInLastName();
-        sendKeysInHappy();
-        sendKeysInPhone();
-        sendKeysInEmail();
-        sendKeysInStatus();
-        clickSaveButtonAddClient();
-    }
-
-    /**
      * Проверить присутсвие текста
      */
     public static void assertText(String text){
@@ -220,6 +228,10 @@ public class Helper {
         }
     }
 
+    /**
+     * Выбор chromedriver в зависимости от платформы (Windows/Mac)
+     * @return driver
+     */
     public static WebDriver driver(){
 
         WebDriver driver = null;
@@ -235,6 +247,10 @@ public class Helper {
         return driver;
     }
 
+    /**
+     * Проверка на Windows
+     * @return true or false
+     */
     public static boolean isWindows(){
 
         String os = System.getProperty("os.name").toLowerCase();
@@ -242,6 +258,10 @@ public class Helper {
 
     }
 
+    /**
+     * Проверка на Mac
+     * @return true or false
+     */
     public static boolean isMac(){
 
         String os = System.getProperty("os.name").toLowerCase();
@@ -249,6 +269,10 @@ public class Helper {
 
     }
 
+    /**
+     * Сгенерировать строку
+     * @return текст
+     */
     public static String generateString()
     {
         int length = new Random().nextInt(20 - 10 + 1) + 10;
@@ -261,6 +285,10 @@ public class Helper {
         return new String(text);
     }
 
+    /**
+     * Сгенерировать email
+     * @return email
+     */
     public static String generateEmail()
     {
         int length = new Random().nextInt(20 - 10 + 1) + 10;
@@ -273,6 +301,10 @@ public class Helper {
         return new String(text) + "@mail.ru";
     }
 
+    /**
+     * Сгенерировать телефон
+     * @return телефон
+     */
     public static String generatePhone(){
         int phone = new Random().nextInt(99999999 - 90000000 + 1) + 90000000;
         return String.valueOf(phone);
