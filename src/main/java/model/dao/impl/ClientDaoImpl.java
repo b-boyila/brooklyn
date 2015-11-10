@@ -1,5 +1,6 @@
 package model.dao.impl;
 
+import help.Search;
 import model.Client;
 import model.dao.ClientDao;
 
@@ -21,10 +22,13 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Collection<Client> getClients() {
+    public Collection<Client> getClients(Search search) {
+        if (search.isEmpty()) {
             return emf.createQuery(
                     "select c from Client c")
                     .getResultList();
+        }
+        return searchClients(search);
 
     }
 
@@ -36,5 +40,15 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public void update(Client client) {
         emf.merge(client);
+    }
+
+    private Collection<Client> searchClients(Search search){
+System.out.println(search.toString());
+       return emf.createQuery(
+                "select c from Client c where c.firstName like :name and c.email like :email and c.phone like :phone")
+                .setParameter("name", "%" + search.getName() + "%")
+                .setParameter("email", "%" + search.getEmail() + "%")
+                .setParameter("phone", "%" + search.getPhone() + "%")
+                .getResultList();
     }
 }

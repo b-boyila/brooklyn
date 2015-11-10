@@ -1,3 +1,5 @@
+package java;
+
 import help.Helper;
 import org.junit.*;
 import org.openqa.selenium.By;

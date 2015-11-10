@@ -35,7 +35,7 @@ Ext.define('Brooklyn.model.ClientCatalogModel', {
 
     },
 
-    hasMany: [{model: 'Brooklyn.model.ParentsCatalogModel', name: 'parents' },
-              {model: 'Brooklyn.model.StoryCatalogModel', name: 'story' }
+    hasMany: [{model: 'Brooklyn.model.ParentsCatalogModel', name: 'parents', associationKey:'parents' },
+              {model: 'Brooklyn.model.StoryCatalogModel', name: 'story', associationKey:'story'}
     ]
 });

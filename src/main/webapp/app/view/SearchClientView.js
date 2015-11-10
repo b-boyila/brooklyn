@@ -10,24 +10,42 @@ Ext.define('Brooklyn.view.SearchClientView', {
     items: [
         {
             xtype: 'textfield',
-            name: 'searchName',
+            name: 'name',
             fieldLabel: 'Имя:',
             maxLength: 200,
-            width: 260
+            width: 260,
+            id: 'nameSearch'
         },
         {
             xtype: 'textfield',
-            name: 'searchEmail',
+            name: 'email',
             fieldLabel: 'E-mail:',
             maxLength: 200,
-            width: 260
+            width: 260,
+            id: 'emailSearch'
         },
         {
             xtype: 'textfield',
-            name: 'searchPhone',
+            name: 'phone',
             fieldLabel: 'Телефон:',
             maxLength: 200,
-            width: 260
+            width: 260,
+            id: 'phoneSearch'
+        },
+        {
+            xtype: 'toolbar',
+            items: [
+                {
+                    xtype: 'button',
+                    action: 'search',
+                    text: 'Поиск'
+                },
+                {
+                    xtype: 'button',
+                    action: 'clean',
+                    text: 'Очистить'
+                }
+            ]
         }
     ]
 });

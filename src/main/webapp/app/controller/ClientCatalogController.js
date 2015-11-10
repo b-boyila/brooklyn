@@ -28,7 +28,9 @@ Ext.define('Brooklyn.controller.ClientCatalogController', {
         {selector: 'storyGridView button[action="add"]',
             ref: 'addStoryButton'},
         {selector: 'storyGridView button[action="delete"]',
-            ref: 'deleteStoryButton'}
+            ref: 'deleteStoryButton'},
+        {selector: 'searchClientView',
+            ref: 'searchClientView'}
     ],
 
     init: function () {
@@ -59,6 +61,30 @@ Ext.define('Brooklyn.controller.ClientCatalogController', {
             },
             'storyGridView  button[action=delete]': {
                 click: this.onDeleteStory
+            },
+            'uploadDataView  checkbox[name=c01]': {
+                change: this.onCheck
+            },
+            'uploadDataView  checkbox[name=c05]': {
+                change: this.onCheck
+            },
+            'uploadDataView  checkbox[name=c09]': {
+                change: this.onCheck
+            },
+            'uploadDataView  checkbox[name=c1]': {
+                change: this.onCheck
+            },
+            'toolClientView  sendEmailView': {
+                afterrender: this.onEmailDelivery
+            },
+            'toolClientView  sendSmsView': {
+                afterrender: this.onSmsDelivery
+            },
+            'searchClientView  button[action=search]': {
+                click: this.onSearchClient
+            },
+            'searchClientView  button[action=clean]': {
+                click: this.onSearchCleanClient
             }
         });
     },
@@ -232,5 +258,46 @@ Ext.define('Brooklyn.controller.ClientCatalogController', {
                 }
             }
         });
+    },
+
+    onCheck: function(item, checked) {
+
+        console.log(item.name);
+        console.log(checked);
+
+    },
+
+    onEmailDelivery: function(component) {
+        var element = component.getEl();
+        element.on('click', function() {
+            window.open('/emailDelivery')
+
+        });
+    },
+
+    onSmsDelivery: function(component) {
+        var element = component.getEl();
+        element.on('click', function() {
+            window.open('/smsDelivery')
+        });
+    },
+
+    onSearchClient: function(){
+        var search = this.getSearchClientView().getValues();
+        Ext.getStore('ClientCatalogStore').load({
+            params: {
+                name: search["name"],
+                email: search["email"],
+                phone: search["phone"]
+            }
+        });
+    },
+
+    onSearchCleanClient: function(){
+        Ext.getCmp('nameSearch').setValue('');
+        Ext.getCmp('emailSearch').setValue('');
+        Ext.getCmp('phoneSearch').setValue('');
+        Ext.getStore('ClientCatalogStore').load();
     }
+
 });

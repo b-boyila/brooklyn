@@ -51,7 +51,9 @@ Ext.define('Brooklyn.view.ClientGridView', {
             text: 'Комментарий',
             flex: 1,
             sortable: true,
-            dataIndex: 'comment'
+            renderer: function(value, meta, record, colIndex, rowIndex, store, view) {
+                return record.story().last().get( 'comment' )
+            }
         }
     ],
     dockedItems: [

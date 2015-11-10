@@ -1,5 +1,6 @@
 package model.dao;
 
+import help.Search;
 import model.Client;
 
 import java.util.Collection;
@@ -11,7 +12,7 @@ public interface ClientDao {
 
     void add(Client client);
 
-    Collection<Client> getClients();
+    Collection<Client> getClients(Search search);
 
     void delete(Client client);
 
